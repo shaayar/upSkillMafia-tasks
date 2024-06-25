@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records</title>
+    <style>
+        body {
+            background-image: url("uxie\ \(1\).png");
+            height: 100vh;
+            width: 100vw;
+
+            .search {
+                display: flex;
+                justify-content: center;
+                
+                input {
+                    border: 0.9vh solid grey;
+                    outline: none;
+                    padding: 0.6vh 0.5vw;
+                    font-size: 1rem;
+                    border-radius: 1vw;
+                    width: 20vw;
+                }
+            }
+
+            .student-container {
+                display: flex;
+                gap: 1vw;
+                flex-wrap: wrap;
+                width: 100%;
+                padding: 1vw 0;
+            }
+
+            .head h1 {
+                font-size: 3vw;
+                width: 100%;
+                text-align: center;
+                color: white;
+            }
+
+            .student-card {
+                width: 20vw;
+                border: 1vh solid #dadada;
+                padding: 0 1vw;
+                background-color: #f9f9f9;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>Students Details:</h1>
+    </div>
+    <div class="search">
+        <input type="text" id="search-input" placeholder="Search by name">
+    </div>
+    <div class="student-container">
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+    </div>
+
+    <script>
+        const students = [
+            { name: 'Alice', marks: 90, class: '10th', address: '123 Main St' },
+            { name: 'Bob', marks: 85, class: '11th', address: '456 Oak Ave' },
+            { name: 'Charlie', marks: 88, class: '10th', address: '789 Pine Rd' },
+            { name: 'David', marks: 92, class: '12th', address: '321 Maple St' },
+            { name: 'Eve', marks: 95, class: '11th', address: '654 Cedar Blvd' },
+            { name: 'Frank', marks: 80, class: '10th', address: '987 Birch Ln' },
+            { name: 'Grace', marks: 87, class: '12th', address: '123 Spruce Dr' },
+            { name: 'Heidi', marks: 93, class: '11th', address: '456 Elm St' },
+            { name: 'Ivan', marks: 89, class: '12th', address: '789 Aspen Ct' },
+            { name: 'Judy', marks: 91, class: '10th', address: '321 Willow Ave' }
+        ];
+
+        // Function to display student cards
+        function displayStudents(filteredStudents = students) {
+            const studentContainer = document.querySelector('.student-container');
+            studentContainer.innerHTML = ''; // Clear existing content
+
+            filteredStudents.map((student) => {
+                const card = document.createElement('div');
+                card.classList.add('student-card');
+                card.innerHTML = `
+                <h2>${student.name}</h2>
+                <p>Marks: ${student.marks}</p>
+                <p>Class: ${student.class}</p>
+                <p>Address: ${student.address}</p>
+        `;
+                studentContainer.appendChild(card);
+            });
+        }
+
+        // Call the displayStudents function initially
+        displayStudents();
+
+        // Implement search functionality
+        const searchInput = document.querySelector('#search-input');
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredStudents = students.filter((student) =>
+                student.name.toLowerCase().includes(searchTerm)
+            );
+            // Update the displayed students based on the filtered results
+            displayStudents(filteredStudents);
+        });
+
+    </script>
+</body>
+
+</html>
